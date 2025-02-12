@@ -53,3 +53,6 @@ trace.zip
 _site/
 
 docs/api-reference/**/*.njk
+
+# Test projects' package-lock.json files
+tests/from-project/**/package-lock.json
