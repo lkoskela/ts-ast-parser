@@ -4,7 +4,7 @@ import type { ProjectContext } from '../project-context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
-import type ts from 'typescript';
+import ts from 'typescript';
 
 
 /**
@@ -26,11 +26,19 @@ export class NamedExportNode implements ReflectedRootNode<Export, ts.ExportDecla
     }
 
     getName(): string {
-        return this._element.name.escapedText ?? '';
+        if (this._element.name && ts.isIdentifier(this._element.name)) {
+            return this._element.name.escapedText ?? '';
+        }
+
+        return '';
     }
 
     getOriginalName(): string {
-        return this._element.propertyName?.escapedText ?? this.getName();
+        if (this._element.propertyName && ts.isIdentifier(this._element.propertyName)) {
+            return this._element.propertyName.escapedText ?? this.getName();
+        }
+
+        return this.getName();
     }
 
     getKind(): ExportKind {

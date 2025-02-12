@@ -5,7 +5,7 @@ import type { ProjectContext } from '../project-context.js';
 import type { Import } from '../models/import.js';
 import { ImportKind } from '../models/import.js';
 import { RootNodeType } from '../models/node.js';
-import type ts from 'typescript';
+import ts from 'typescript';
 
 
 /**
@@ -39,7 +39,11 @@ export class NamedImportNode implements ReflectedRootNode<Import, ts.ImportDecla
     }
 
     getReferenceName(): string {
-        return this._element.propertyName?.escapedText ?? this.getName();
+        if (this._element.propertyName && ts.isIdentifier(this._element.propertyName)) {
+            return this._element.propertyName.escapedText ?? this.getName();
+        }
+
+        return this.getName();
     }
 
     getNodeType(): RootNodeType {

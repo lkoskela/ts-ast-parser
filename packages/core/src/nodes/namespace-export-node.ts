@@ -23,11 +23,11 @@ export class NamespaceExportNode implements ReflectedRootNode<Export, ts.ExportD
     }
 
     getName(): string {
-        if (!this._node.exportClause || !ts.isNamespaceExport(this._node.exportClause)) {
-            return '';
+        if (this._node.exportClause && ts.isNamespaceExport(this._node.exportClause)) {
+            return this._node.exportClause.name.text ?? '';
         }
 
-        return this._node.exportClause.name.escapedText ?? '';
+        return '';
     }
 
     getOriginalName(): string {
