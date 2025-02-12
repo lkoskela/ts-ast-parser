@@ -16,7 +16,7 @@
         "url": "https://github.com/jordimarimon/ts-ast-parser/issues"
     },
     "engines": {
-        "node": "18.x || 20.x || 21.x || 22.x"
+        "node": "18.x || 20.x || 21.x || 22.x || 23.x"
     },
     "scripts": {
         "build": "npm-run-all ts:reset ts:clear ts:build",
